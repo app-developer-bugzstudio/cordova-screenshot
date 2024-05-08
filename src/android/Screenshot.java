@@ -225,6 +225,7 @@ public class Screenshot extends CordovaPlugin {
             // Always make it true for Android 11 and above because requesting WRITE_EXTERNAL_STORAGE
             // means nothing
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+              saveScreenshot();
               return true;
             }
             
