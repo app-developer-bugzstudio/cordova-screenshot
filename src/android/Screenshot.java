@@ -14,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Base64;
 import android.view.TextureView;
@@ -221,6 +222,12 @@ public class Screenshot extends CordovaPlugin {
         mArgs = args;
 
         if (action.equals("saveScreenshot")) {
+            // Always make it true for Android 11 and above because requesting WRITE_EXTERNAL_STORAGE
+            // means nothing
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+              return true;
+            }
+            
             if(PermissionHelper.hasPermission(this, PERMISSIONS[0])) {
                 saveScreenshot();
             } else {
